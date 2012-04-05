@@ -12,6 +12,7 @@ module Delayed
           :failed_at, :locked_at, :locked_by
 
         before_save :set_default_run_at
+        before_save :set_slug
 
         def self.rails3?
           ::ActiveRecord::VERSION::MAJOR == 3
@@ -97,6 +98,10 @@ module Delayed
         def reload(*args)
           reset
           super
+        end
+        
+        def set_slug
+          self.slug = name
         end
       end
     end
